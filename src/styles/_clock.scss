@@ -1,0 +1,61 @@
+@mixin BorderRadius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin InsideClock($ptop, $pleft, $colorText, $fs) {
+  position: absolute;
+  top: $ptop;
+  left: $pleft;
+  font-size: $fs;
+  color: $colorText;
+}
+
+%buttons {
+  width: 170px;
+  height: 48px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid rgba(0, 207, 155, 0.7);
+}
+
+body {
+  background-color: black;
+  background-image: url(./images/pattern.png);
+}
+
+#clock {
+  width: 500px;
+  height: 500px;
+  background-color: black;
+  @include BorderRadius(50%);
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  margin-left: -300px;
+  margin-top: -50px;
+  box-shadow: 0 0 20px 4px rgba(0, 207, 155, 0.7);
+  #time {
+    @include InsideClock(70px, 105px, white, 120px);
+  }
+  #round {
+    @include InsideClock(245px, 185px, white, 30px);
+  }
+  #start {
+    @extend %buttons;
+    @include InsideClock(315px, 172px, white, 16pt);
+    @include BorderRadius (30px);
+
+    &:hover {
+      background-color: rgba(0, 207, 155, 0.7);
+    }
+  }
+  #reset {
+    @extend %buttons;
+    @include InsideClock(380px, 172px, white, 16pt);
+    @include BorderRadius (30px);
+    &:hover {
+      background-color: rgba(0, 207, 155, 0.7);
+    }
+  }
+}

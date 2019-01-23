@@ -1,8 +1,1 @@
-$hel: red;
-$sz: 20px;
-body {
-  background-color: $hel;
-}
-#gg {
-  font-size: $sz+20;
-}
+@import './styles/clock';
