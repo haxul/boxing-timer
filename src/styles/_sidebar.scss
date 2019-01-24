@@ -1,0 +1,47 @@
+$color: #eee;
+
+#sidebar {
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  margin-left: 300px;
+  margin-top: -145px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .blocks {
+    color: $color;
+    border-bottom: 1px solid $color;
+    padding: 3px 0;
+    input {
+      border: 1px dotted $color;
+      width: 50px;
+      border-radius: 5px;
+      background: 0 0;
+      color: $color;
+      padding-left: 4px; 
+      &:focus {
+        box-shadow: 0 0 10px 1px rgba(0, 207, 155, 0.7);
+        -webkit-box-shadow: 0 0 10px 1px rgba(0, 207, 155, 0.7);
+      }
+    }
+  }
+}
+
+#input1 {
+  margin-left: 58px;
+}
+#input2 {
+  margin-left: 50px;
+}
+#input3 {
+  margin-left: 57px
+}
+#input4 {
+  margin-left: 26px
+}
+#input5 {
+  margin-left: 42px
+}

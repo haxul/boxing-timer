@@ -1,3 +1,5 @@
+$color : rgba(0, 207, 155, 0.7);
+
 @mixin BorderRadius($radius) {
   -webkit-border-radius: $radius;
   border-radius: $radius;
@@ -16,7 +18,7 @@
   height: 48px;
   line-height: 30px;
   text-align: center;
-  border: 1px solid rgba(0, 207, 155, 0.7);
+  border: 1px solid $color;
 }
 
 body {
@@ -34,7 +36,7 @@ body {
   top: 20%;
   margin-left: -300px;
   margin-top: -50px;
-  box-shadow: 0 0 20px 4px rgba(0, 207, 155, 0.7);
+  box-shadow: 0 0 50px 4px $color;
   #time {
     @include InsideClock(70px, 105px, white, 120px);
   }
@@ -45,9 +47,8 @@ body {
     @extend %buttons;
     @include InsideClock(315px, 172px, white, 16pt);
     @include BorderRadius (30px);
-
     &:hover {
-      background-color: rgba(0, 207, 155, 0.7);
+      background-color: $color;
     }
   }
   #reset {
@@ -55,7 +56,7 @@ body {
     @include InsideClock(380px, 172px, white, 16pt);
     @include BorderRadius (30px);
     &:hover {
-      background-color: rgba(0, 207, 155, 0.7);
+      background-color: $color;
     }
   }
 }

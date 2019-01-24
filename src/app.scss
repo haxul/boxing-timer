@@ -1,2 +1,6 @@
 @import './styles/clock';
 @import "./styles/sidebar";
+
+body {
+  min-width: 800px;
+}
