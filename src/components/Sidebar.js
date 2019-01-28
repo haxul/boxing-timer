@@ -24,9 +24,10 @@ class Sidebar extends React.Component {
       round--;
     }
     this.setState({ round: round });
+    this.props.updateRound(round);
   };
 
-  setTime = (e, item, maxMin, minMin, maxSec, minSec) => {
+  setTime = (e, item, maxMin, minMin, maxSec, minSec, flag) => {
     const addZero = n => {
       if (+n > 9) return n;
       return "0" + n;
@@ -53,6 +54,23 @@ class Sidebar extends React.Component {
       } else secundes -= 10;
     }
     item = addZero(minutes) + ":" + addZero(secundes);
+    switch (flag) {
+      case "roundTime":
+        this.props.updateRoundTime(item);
+        break;
+      case "roundTime":
+        this.props.updateRoundTime(item);
+        break;
+      case "alerter":
+        this.props.updateAlerter(item);
+        break;
+      case "restTime":
+        this.props.updateRestTime(item);
+        break;
+      case "prepareTime":
+        this.props.updatePrapereTime(item);
+        break;
+    }
     return item;
   };
 
@@ -86,7 +104,7 @@ class Sidebar extends React.Component {
             value={roundTime}
             onChange={this.handleInputs}
             onKeyDown={e => {
-              let value = this.setTime(e, roundTime, 10, 0, 0, 10);
+              let value = this.setTime(e, roundTime, 10, 0, 0, 10, "roundTime");
               this.setState({ roundTime: value });
             }}
           />
@@ -99,7 +117,7 @@ class Sidebar extends React.Component {
             value={restTime}
             onChange={this.handleInputs}
             onKeyDown={e => {
-              let value = this.setTime(e, restTime, 10, 0, 0, 10);
+              let value = this.setTime(e, restTime, 10, 0, 0, 10, "restTime");
               this.setState({ restTime: value });
             }}
           />
@@ -112,7 +130,7 @@ class Sidebar extends React.Component {
             value={alerter}
             onChange={this.handleInputs}
             onKeyDown={e => {
-              let value = this.setTime(e, alerter, 1, 0, 0, 0);
+              let value = this.setTime(e, alerter, 1, 0, 0, 0, "alerter");
               this.setState({ alerter: value });
             }}
           />
@@ -125,7 +143,15 @@ class Sidebar extends React.Component {
             value={prepareTime}
             onChange={this.handleInputs}
             onKeyDown={e => {
-              let value = this.setTime(e, prepareTime, 1, 0, 0, 10);
+              let value = this.setTime(
+                e,
+                prepareTime,
+                1,
+                0,
+                0,
+                10,
+                "prepareTime"
+              );
               this.setState({ prepareTime: value });
             }}
           />
