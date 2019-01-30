@@ -6,12 +6,13 @@ class Clock extends React.Component {
     this.startRoundTime = undefined;
     this.startPrepareTime = undefined;
     this.startRestTime = undefined;
+    this.alerter = 0;
   }
   state = {
     minutes: "00",
     secundes: "00",
     buttonStart: false,
-    buttonReset: true,
+    buttonReset: false,
     minutesPrepare: "00",
     secundesPrepare: "30",
     minRest: '01',
@@ -41,7 +42,9 @@ class Clock extends React.Component {
       minutes--;
     } else if (minutes <= 0 && secundes <= 1) {
       secundes = 0;
+      this.alerter = 0;
       clearInterval(this.startPrepareTime);
+      this.giveGong()
       this.setState({
         flag: "roundTime",
         minutes: this.props.roundTime.slice(0, 2),
@@ -67,15 +70,18 @@ class Clock extends React.Component {
     if (secundes <= 0) {
       secundes = 59;
       minutes--;
-    } else if (minutes <= 0 && secundes <= 1) {
+    } else if (minutes <= 0 && secundes <= 1 && this.state.flag !== 'stop') {
       if (this.state.round >= this.props.round) {
         this.setState({
           flag: 'stop',
         });
+        this.giveGong()
         return;
       }
+      this.alerter = 0;
       secundes = 0;
       clearInterval(this.startRoundTime);
+      this.giveGong()
       this.setState({
         flag: 'restTime',
         minRest: this.props.restTime.slice(0, 2),
@@ -85,6 +91,16 @@ class Clock extends React.Component {
       this.startRestTime = setInterval(this.startRestTimeBackCounter, 500);
     } else {
       secundes--;
+      this.alerter++;
+      if (this.alerter === +this.props.alerter.slice(-2) && +this.props.alerter.slice(0,2) === 0 && this.props.alerter !== '00:00') {
+        this.giveWhistle()
+        this.alerter = 0;
+      } else if (+this.props.alerter.slice(0,2) === 1 && this.alerter === 59) {
+        this.giveWhistle();
+        this.alerter = 0;
+      } else if (this.props.alerter === '00:00') {
+        this.alerter = -2;
+      }
     }
     secundes = this.addZero(secundes);
     minutes = this.addZero(minutes);
@@ -99,6 +115,7 @@ class Clock extends React.Component {
       minutes--;
     } else if (minutes <= 0 && secundes <= 1) {
       secundes = 0;
+      this.giveGong()
       clearInterval(this.startRestTime);
       this.setState({
         flag: 'roundTime',
@@ -112,6 +129,23 @@ class Clock extends React.Component {
     secundes = this.addZero(secundes);
     minutes = this.addZero(minutes);
     this.setState({ secRest: secundes, minRest: minutes });
+  }
+
+  giveWhistle = () => {
+    let audio = new Audio('alert.mp3');
+    audio.play();
+  }
+  giveGong = () => {
+    let audio = new Audio ('gong.mp3');
+    audio.play();
+    setTimeout(() => {
+      audio.pause()
+    }, 15000)
+  }
+  setDisabledInputs = (boolean) => {
+    for (var i = 0; i < document.querySelectorAll('input').length; i++) {
+      document.querySelectorAll('input')[i].disabled = boolean
+    }
   }
 
   render() {
