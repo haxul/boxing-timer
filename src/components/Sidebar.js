@@ -1,10 +1,7 @@
 import React from "react";
 
 class Sidebar extends React.Component {
-  // constructor () {
-  //   super();
-  // }
-  //
+ 
   state = {
     round: 3,
     roundTime: "03:00",
